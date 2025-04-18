@@ -6,42 +6,66 @@ import numpy as np
 import pandas as pd
 import os
 
-# Using the pretrained ResNet50 model for feature extraction, it's a CNN that tends to work well with image extraction
-model = models.resnet50(pretrained=True)
-model.eval()  # Set to evaluation mode
-model = torch.nn.Sequential(*list(model.children())[:-1])  # Remove final classification layer
+# Check GPU and PyTorch setup
+print("Checking PyTorch and GPU setup...")
+print(f"PyTorch version: {torch.__version__}")
+print(f"CUDA available: {torch.cuda.is_available()}")
+print(f"CUDA version: {torch.version.cuda}")
+print(f"Number of GPUs: {torch.cuda.device_count()}")
+if torch.cuda.is_available():
+    print(f"GPU name: {torch.cuda.get_device_name(0)}")
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(f"Using device: {device}")
+
+# Load ResNet50 model
+print("Loading ResNet50 model...")
+model = models.resnet50(weights=models.ResNet50_Weights.IMAGENET1K_V1)
+model.eval()
+model = torch.nn.Sequential(*list(model.children())[:-1])
+model = model.to(device)  # Move model to GPU
 
 # Define image preprocessing
 preprocess = transforms.Compose([
-    # Resize to 224x224, as required by ResNet50
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
 ])
 
 def extract_features(image_path):
-    # Load and preprocess image
-    image = Image.open(image_path).convert("RGB")
-    image_tensor = preprocess(image).unsqueeze(0)  # Add batch dimension
-    
-    # Extract features
-    with torch.no_grad():
-        features = model(image_tensor)
-    return features.squeeze().numpy()  # Flatten to 1D array
+    try:
+        image = Image.open(image_path).convert("RGB")
+        image_tensor = preprocess(image).unsqueeze(0).to(device)
+        with torch.no_grad():
+            features = model(image_tensor)
+        return features.squeeze().cpu().numpy()
+    except Exception as e:
+        print(f"Error processing {image_path}: {e}")
+        return None
 
-# Process all images and save to CSV
-image_dir = "../Videos/extracted"
+# Process images
+image_dir = "../Videos/extracted"  # Try absolute path if this fails
+print(f"Checking directory: {os.path.abspath(image_dir)}")
+print(f"Files in directory: {os.listdir(image_dir)}")
 feature_vectors = []
 image_names = []
 
 for img_name in os.listdir(image_dir):
     if img_name.endswith(".png"):
+        print(f"Processing {img_name}...")
         img_path = os.path.join(image_dir, img_name)
         features = extract_features(img_path)
-        feature_vectors.append(features)
-        image_names.append(img_name)
+        if features is not None:
+            feature_vectors.append(features)
+            image_names.append(img_name)
+        else:
+            print(f"Skipping {img_name} due to error")
 
 # Save to CSV
-feature_vectors = np.array(feature_vectors)
-df = pd.DataFrame(feature_vectors, index=image_names)
-df.to_csv("feature_vectors.csv")
+if feature_vectors:
+    print("Saving feature vectors to CSV...")
+    feature_vectors = np.array(feature_vectors)
+    df = pd.DataFrame(feature_vectors, index=image_names)
+    df.to_csv("feature_vectors.csv")
+    print("Done!")
+else:
+    print("No features extracted. Check directory or image files.")

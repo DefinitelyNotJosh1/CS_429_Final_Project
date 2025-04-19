@@ -10,7 +10,7 @@ df = pd.read_csv("L_1.5_200_pca_components.csv", index_col=0)
 features = df.values
 
 # Apply K-Means clustering
-kmeans = KMeans(n_clusters=2, random_state=42)
+kmeans = KMeans(n_clusters=5, random_state=42)
 clusters = kmeans.fit_predict(features)
 
 # Add cluster labels to DataFrame

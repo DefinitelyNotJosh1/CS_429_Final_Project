@@ -17,7 +17,8 @@ clusters = kmeans.fit_predict(features)
 
 # Add cluster labels to DataFrame
 df["cluster"] = clusters
-df.to_csv("clustered_features.csv")
+df.to_csv("L_1.5_200_clustered_features.csv")
+print("Cluster assignments saved to L_1.5_200_clustered_features.csv")
 
 
 # Visualize the clusters in 3D
@@ -80,6 +81,5 @@ plt.tight_layout()
 # Show the plot
 plt.show()
 
-print("Cluster assignments saved to clustered_features.csv")
 print("Explained variance ratio:", pca.explained_variance_ratio_)
 print("Total variance explained:", sum(pca.explained_variance_ratio_))

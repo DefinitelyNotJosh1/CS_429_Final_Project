@@ -5,6 +5,8 @@ from PIL import Image
 import numpy as np
 import pandas as pd
 import os
+from sklearn.decomposition import PCA
+
 
 # Check GPU and PyTorch setup
 print("Checking PyTorch and GPU setup...")
@@ -69,3 +71,22 @@ if feature_vectors:
     print("Done!")
 else:
     print("No features extracted. Check directory or image files.")
+
+print("Feature extraction completed.")
+
+
+
+
+# Perform PCA - can do here or in separate script
+# print("Performing PCA...")
+# pca = PCA(n_components=60) # explains 97.13% of variance
+# pca.fit(feature_vectors)
+# explained_variance = pca.explained_variance_ratio_
+# print("Explained variance ratio:", explained_variance)
+# print("Total variance explained:", sum(explained_variance))
+# print("PCA completed.")
+
+# # Save PCA components to CSV
+# pca_components = pca.transform(feature_vectors)
+# pca_df = pd.DataFrame(pca_components, index=image_names)
+# pca_df.to_csv("pca_components.csv")

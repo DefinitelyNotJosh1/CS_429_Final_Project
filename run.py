@@ -6,7 +6,7 @@ if cancel.lower() != 'y':
     print("Exiting script.")
     exit()
 
-image_dir = "../Videos/extracted"
+image_dir = "../Videos/extracted2"
 feature_vectors = []
 image_names = []
 

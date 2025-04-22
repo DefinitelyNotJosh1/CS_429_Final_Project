@@ -7,8 +7,9 @@ import seaborn as sns
 import numpy as np
 import matplotlib.colors as mcolors
 
+
 # Load feature vectors
-df = pd.read_csv("L_1.5_200_pca_components.csv", index_col=0)
+df = pd.read_csv("S_1.0_200_pca_components.csv", index_col=0)
 features = df.values
 
 # Apply K-Means clustering
@@ -17,8 +18,8 @@ clusters = kmeans.fit_predict(features)
 
 # Add cluster labels to DataFrame
 df["cluster"] = clusters
-df.to_csv("L_1.5_200_clustered_features.csv")
-print("Cluster assignments saved to L_1.5_200_clustered_features.csv")
+df.to_csv("S_1.0_200_clustered_features.csv")
+print("Cluster assignments saved to S_1.0_200_clustered_features.csv")
 
 
 # Visualize the clusters in 3D

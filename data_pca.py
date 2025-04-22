@@ -1,3 +1,6 @@
+# DONE AUTOMATICALLY IN DATA PREPROCESSING  - run for testing purposes
+
+
 from sklearn.decomposition import PCA
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -5,7 +8,7 @@ import seaborn as sns
 import numpy as np
 import os
 
-df = pd.read_csv("L_1.5_200_feature_vectors.csv", index_col=0)
+df = pd.read_csv("S_1.0_200_feature_vectors.csv", index_col=0)
 feature_vectors = df.values
 
 print(feature_vectors.shape)
@@ -28,7 +31,7 @@ print(feature_vectors.shape)
 # plt.show()
 
 # Perform PCA
-pca = PCA(n_components=35) # explains 95.354% of variance
+pca = PCA(n_components=10) # explains 95.354% of variance
 pca.fit(feature_vectors)
 explained_variance = pca.explained_variance_ratio_
 print("Explained variance ratio:", explained_variance)
@@ -36,8 +39,8 @@ print("Total variance explained:", sum(explained_variance))
 print("PCA completed.")
 
 
-
 # Save PCA components to CSV
-pca_components = pca.transform(feature_vectors)
-pca_df = pd.DataFrame(pca_components, index=df.index)
-pca_df.to_csv("L_1.5_200_pca_components.csv")
+# pca_components = pca.transform(feature_vectors)
+# pca_df = pd.DataFrame(pca_components, index=df.index)
+# pca_df.to_csv("S_1.0_200_pca_components.csv")
+# print("PCA components saved to S_1.0_200_pca_components.csv")

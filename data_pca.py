@@ -28,7 +28,7 @@ print(feature_vectors.shape)
 # plt.show()
 
 # Perform PCA
-pca = PCA(n_components=60) # explains 97.13% of variance
+pca = PCA(n_components=35) # explains 95.354% of variance
 pca.fit(feature_vectors)
 explained_variance = pca.explained_variance_ratio_
 print("Explained variance ratio:", explained_variance)

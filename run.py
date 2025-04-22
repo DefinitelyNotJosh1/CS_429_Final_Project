@@ -10,14 +10,20 @@ image_dir = "../Videos/extracted"
 feature_vectors = []
 image_names = []
 
-for img_name in os.listdir(image_dir):
-    if img_name.endswith(".png"):
-        image_names.append(img_name)
+# check if the directory exists
+if not os.path.exists(image_dir):
+    print(f"Directory {image_dir} does not exist. Please check the path.")
+else:
+    print(f"Directory {image_dir} exists. Proceeding with image processing.")
+    for img_name in os.listdir(image_dir):
+        if img_name.endswith(".png"):
+            image_names.append(img_name)
+
     
 num_images = len(image_names)
 allow_preprocess = True
 
-if num_images < 0:
+if num_images < 1:
     print("Images not in correct directory. Images should be in ../Videos/extracted (Videos/extracted in the folder outside of this folder).")
     print("Cannot run data preprocessing.")
     allow_preprocess = False

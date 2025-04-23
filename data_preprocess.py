@@ -6,18 +6,19 @@ from PIL import Image
 import numpy as np
 import pandas as pd
 import os
+import ffmpeg
+import time
+import tqdm # tqdm is a progress bar library - I just wanted to use it
 
-classifying_info = [0.999, 0.999] # Size of block[0.0001 for small, 0.5 for medium, 0.999 for large], wind speed[0.0001 for 0.5 m/s, 0.5 for 1.0 m/s, 0.999 for 1.5 m/s]
-video_name = "No.1_L_1.5_200"
-image_dir = "../Videos/extracted/" + video_name # Directory containing images
-num_components = 10 # Number of PCA components to keep
+start_time = time.time()
 
-if not os.path.exists(image_dir):
-    print(f"Directory {image_dir} does not exist. Creating it.")
-    os.makedirs(image_dir)  # Create directory if it doesn't exist
+# Input data
+classifying_info = [[0.999, 0.999], [0.0001, 0.5]]
+video_names_with_end = ["No. 1_L_1.5 _200 _02-18-2025.MOV", "No. 7_S_1.0 _200 _03-27-2025.MOV"]
+num_components = 10
+video_names = [name[:-4] for name in video_names_with_end]
 
-
-# Check GPU and PyTorch setup
+# Device setup
 print("Checking PyTorch and GPU setup...")
 print(f"PyTorch version: {torch.__version__}")
 print(f"CUDA available: {torch.cuda.is_available()}")
@@ -28,20 +29,19 @@ if torch.cuda.is_available():
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Using device: {device}")
 
-# Load ResNet50 model
-print("Loading ResNet50 model...")
+# Load ResNet50
 model = models.resnet50(weights=models.ResNet50_Weights.IMAGENET1K_V1)
+model = torch.nn.Sequential(*list(model.children())[:-1]).to(device)
 model.eval()
-model = torch.nn.Sequential(*list(model.children())[:-1])
-model = model.to(device)  # Move model to GPU
 
-# Define image preprocessing
+# Image preprocessing pipeline
 preprocess = transforms.Compose([
     transforms.Resize((224, 224)),
     transforms.ToTensor(),
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
 ])
-    
+
+# Function to extract features from an image
 def extract_features(image_path):
     try:
         image = Image.open(image_path).convert("RGB")
@@ -53,65 +53,68 @@ def extract_features(image_path):
         print(f"Error processing {image_path}: {e}")
         return None
 
-# Process images
-print(f"Checking directory: {os.path.abspath(image_dir)}")
-# print(f"Files in directory: {os.listdir(image_dir)}") # Uncomment to debug
+# Collect all feature vectors
+all_feature_vectors = []
+all_identifiers = []
+video_idx = 0 # track video ID
 
-feature_vectors = []
-image_names = []
+for video_name in video_names:
+    video_path = "../Videos/" + video_names_with_end[video_idx]
+    if not os.path.exists(video_path):
+        print(f"Video {video_path} does not exist. Skipping.")
+        continue
 
-for img_name in os.listdir(image_dir):
-    if img_name.endswith(".png"):
-        print(f"Processing {img_name}...")
-        img_path = os.path.join(image_dir, img_name)
-        features = extract_features(img_path)
-        if features is not None:
-            feature_vectors.append(features)
-            feature_vectors.append(classifying_info)
-            image_names.append(img_name)
-        else:
-            print(f"Skipping {img_name} due to error")
+    output_dir = "../Videos/extracted/" + video_name + "/"
+    os.makedirs(output_dir, exist_ok=True)
+    print(f"Extracting frames from {video_path}...")
+    # ffmpeg has a python library - not even surprised lol - but great, makes my job easier
+    ffmpeg.input(video_path).output(f"{output_dir}/%04d.png", format="image2", vcodec="png", r=5).run(overwrite_output=True)
 
-# Save to CSV
-if feature_vectors:
+    # Process images
+    for img_name in tqdm.tqdm(os.listdir(output_dir), desc=f"Processing images for {video_name}"):
+        if img_name.endswith(".png"):
+            img_path = os.path.join(output_dir, img_name)
+            features = extract_features(img_path)
+            if features is None:  # Probably won't be an issue, but I don't want to have to rerun the whole thing if I can avoid it
+                print(f"Skipping {img_name} due to extraction error.")
+                continue
+            # Combine ResNet50 features with classifying info
+            feature_vector = np.concatenate([features, classifying_info[video_idx]])
+            all_feature_vectors.append(feature_vector)
+        all_identifiers.append(f"{video_name}/{img_name}")  # Unique identifier for each image - why not, better to add now then want them later and not have them
+    
+    video_idx += 1
+    print(f"Processed video {video_name}.\n")
+
+
+# Convert to array and apply PCA - doing this after all videos are processed, running PCA on each video separately was a bad idea in hindsight
+if all_feature_vectors:
+    # Save all feature vectors to a CSV file - it'll be a big one, but I don't care - I only want to run this script once
     print("Saving feature vectors to CSV...")
-    feature_vectors = np.array(feature_vectors)
-    df = pd.DataFrame(feature_vectors, index=image_names)
-    df.to_csv(video_name = "_feature_vectors.csv")
-    print("Feature vectors saved to " + video_name + "_feature_vectors.csv")
-    print("Done!")
-else:
-    print("No features extracted. Check directory or image files.")
+    feature_df = pd.DataFrame(all_feature_vectors, index=all_identifiers)
+    feature_df.to_csv("feature_vectors.csv")
+    print("Feature vectors saved to feature_vectors.csv")
 
-print("Feature extraction completed.")
+    # apply PCA to all feature vectors
+    print("Applying PCA to all feature vectors...")
+    feature_array = np.array(all_feature_vectors)
+    pca = PCA(n_components=num_components)
+    pca.fit(feature_array)
+    pca_components = pca.transform(feature_array)
+    
+    print(f"Explained variance ratio: {pca.explained_variance_ratio_}")
+    print(f"Total variance explained: {sum(pca.explained_variance_ratio_)}")
 
-
-print("Running PCA on " + num_components + " components...")
-# Load feature vectors from CSV
-df = pd.read_csv(video_name + "_feature_vectors.csv", index_col=0)
-feature_vectors = df.values
-
-print(feature_vectors.shape)
-
-
-# Perform PCA
-pca = PCA(n_components=num_components)
-pca.fit(feature_vectors)
-explained_variance = pca.explained_variance_ratio_
-print("Explained variance ratio:", explained_variance)
-print("Total variance explained:", sum(explained_variance))
-print("PCA completed.")
-
-
-# apend PCA components to CSV
-pca_components = pca.transform(feature_vectors)
-pca_df = pd.DataFrame(pca_components, index=df.index)
-if not os.path.exists("pca_components.csv"): # if the file does not exist, create it
+    # Save PCA components
+    pca_df = pd.DataFrame(pca_components, index=all_identifiers)
     pca_df.to_csv("pca_components.csv")
     print("PCA components saved to pca_components.csv")
-else: # if the file exists, append to it
-    pca_df.to_csv("pca_components.csv", mode='a', header=False)
-    print("PCA components appended to pca_components.csv")
+else:
+    print("No features extracted.")
 
+print("All videos processed!")
+print(f"Total time: {time.time() - start_time:.2f} seconds or {(time.time() - start_time) / 60:.2f} minutes")
 
-
+# Write total time it took to a file just because
+with open("total_time.txt", "w") as f:
+    f.write(f"Total time: {time.time() - start_time:.2f} seconds or {(time.time() - start_time) / 60:.2f} minutes")

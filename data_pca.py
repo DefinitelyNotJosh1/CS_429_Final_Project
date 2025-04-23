@@ -8,7 +8,9 @@ import seaborn as sns
 import numpy as np
 import os
 
-df = pd.read_csv("S_1.0_200_feature_vectors.csv", index_col=0)
+num_components = 10 # Number of PCA components to keep
+
+df = pd.read_csv("feature_vectors.csv", index_col=0)
 feature_vectors = df.values
 
 print(feature_vectors.shape)
@@ -16,7 +18,7 @@ print(feature_vectors.shape)
 # Graph PCA total variance explained over number of components
 # i = 1
 # explained_variance = []
-# for i in range(1, 150):
+# for i in range(1, 80):
 #     pca = PCA(n_components=i)
 #     pca.fit(feature_vectors)
 #     explained_variance.append(sum(pca.explained_variance_ratio_))
@@ -31,7 +33,7 @@ print(feature_vectors.shape)
 # plt.show()
 
 # Perform PCA
-pca = PCA(n_components=10) # explains 95.354% of variance
+pca = PCA(n_components=num_components)
 pca.fit(feature_vectors)
 explained_variance = pca.explained_variance_ratio_
 print("Explained variance ratio:", explained_variance)
@@ -42,5 +44,5 @@ print("PCA completed.")
 # Save PCA components to CSV
 # pca_components = pca.transform(feature_vectors)
 # pca_df = pd.DataFrame(pca_components, index=df.index)
-# pca_df.to_csv("S_1.0_200_pca_components.csv")
-# print("PCA components saved to S_1.0_200_pca_components.csv")
+# pca_df.to_csv("pca_components.csv")
+# print("PCA components saved to pca_components.csv")

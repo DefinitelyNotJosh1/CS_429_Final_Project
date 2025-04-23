@@ -13,8 +13,8 @@ import tqdm # tqdm is a progress bar library - I just wanted to use it
 start_time = time.time()
 
 # Input data
-classifying_info = [[0.999, 0.999], [0.999, 0.999], [0.0001, 0.999], 
-                    [0.500, 0.999], [0.999, 0.500], [0.500, 0.500],
+classifying_info = [[0.9990, 0.999], [0.999, 0.9990], [0.0001, 0.999], 
+                    [0.5000, 0.999], [0.999, 0.5000], [0.5000, 0.500],
                     [0.0001, 0.500], [0.500, 0.0001]] 
 # ^ Size of block[0.0001 for small, 0.5 for medium, 0.999 for large], wind speed[0.0001 for 0.5 m/s, 0.5 for 1.0 m/s, 0.999 for 1.5 m/s]
 video_names_with_end = ["No. 1_L_1.5 _200 _02-18-2025.MOV", "No. 2_L_1.5 _200 _02-19-2025.MOV", "No. 3_S_1.5 _200 _04-03-2025.MOV", 

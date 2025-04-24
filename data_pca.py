@@ -1,4 +1,4 @@
-# DONE AUTOMATICALLY IN DATA PREPROCESSING  - run for testing purposes
+# RUN PCA ON ALL THE FEATURE VECTORS
 
 
 from sklearn.decomposition import PCA
@@ -29,7 +29,7 @@ print(feature_vectors.shape)
 # plt.title("Cumulative Explained Variance by PCA Components")
 # plt.xlabel("Number of Components")
 # plt.ylabel("Cumulative Explained Variance")
-# plt.savefig("resnet-explained_variance_-2.5-2.5_range.png")
+# plt.savefig("resnet-explained_variance_-1-1_range.png")
 # plt.show()
 
 # Perform PCA
@@ -42,7 +42,7 @@ print("PCA completed.")
 
 
 # Save PCA components to CSV
-pca_components = pca.transform(feature_vectors)
-pca_df = pd.DataFrame(pca_components, index=df.index)
-pca_df.to_csv("pca_components.csv")
-print("PCA components saved to pca_components.csv")
+# pca_components = pca.transform(feature_vectors)
+# pca_df = pd.DataFrame(pca_components, index=df.index)
+# pca_df.to_csv("pca_components.csv")
+# print("PCA components saved to pca_components.csv")

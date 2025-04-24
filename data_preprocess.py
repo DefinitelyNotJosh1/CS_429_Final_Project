@@ -1,3 +1,5 @@
+# THIS IS FOR VIDEO EXTRACTION AND FEATURE EXTRACTION - DO NOT RUN THIS UNLESS YOU HAVE THE DATASET/MACHINE SETUP
+
 import torch
 import torchvision.models as models
 import torchvision.transforms as transforms

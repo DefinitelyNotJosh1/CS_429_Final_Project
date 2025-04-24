@@ -8,7 +8,7 @@ import numpy as np
 import matplotlib.colors as mcolors
 
 
-num_clusters = 16 # Number of clusters for K-Means
+num_clusters = 10 # Number of clusters for K-Means
 
 # Load feature vectors
 df = pd.read_csv("pca_components.csv", index_col=0)
@@ -103,5 +103,5 @@ for idx, (video_id, group) in enumerate(video_groups):
     plt.yticks([])
     plt.colorbar(ticks=tick_count, label='Label')
 plt.tight_layout()
-plt.savefig("resnet_group_layout_over_time_-5-5_range.png")
+plt.savefig("resnet_group_layout_over_time_-1-1_range.png")
 plt.show()

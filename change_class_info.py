@@ -2,12 +2,12 @@ import pandas as pd
 import os
 
 # Classifying info - how "heavy" the changes in block size and wind speed are
-small_block = -5  # Size of small block
+small_block = -1  # Size of small block
 medium_block = 0.0001  # Size of medium block
-large_block = 5  # Size of large block
-low_wind = -5  # Wind speed of low wind
+large_block = 1  # Size of large block
+low_wind = -1  # Wind speed of low wind
 medium_wind = 0.0001  # Wind speed of medium wind
-high_wind = 5  # Wind speed of high wind
+high_wind = 1  # Wind speed of high wind
 
 classifying_info = [
     [large_block, high_wind],
@@ -71,6 +71,8 @@ df = df.drop('video_id', axis=1)
 # Save the modified DataFrame back to CSV
 print("Saving modified dataframe to feature_vectors.csv...")
 df.to_csv("feature_vectors.csv")
+
+# Run other data stuff for convenience
 
 # Run PCA and K-Means clustering python files
 print("Running PCA...")

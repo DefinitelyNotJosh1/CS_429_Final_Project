@@ -1,1 +1,1 @@
-Total time: 6073.02 seconds or 101.22 minutes
+Total time: 4510.29 seconds or 75.17 minutes

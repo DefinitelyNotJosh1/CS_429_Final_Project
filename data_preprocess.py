@@ -13,14 +13,28 @@ import tqdm # tqdm is a progress bar library - I just wanted to use it
 start_time = time.time()
 
 # Input data
-classifying_info = [[0.9990, 0.999], [0.999, 0.9990], [0.0001, 0.999], 
-                    [0.5000, 0.999], [0.999, 0.5000], [0.5000, 0.500],
-                    [0.0001, 0.500], [0.500, 0.0001]] 
-# ^ Size of block[0.0001 for small, 0.5 for medium, 0.999 for large], wind speed[0.0001 for 0.5 m/s, 0.5 for 1.0 m/s, 0.999 for 1.5 m/s]
+num_components = 10 # for PCA
+
+  
+# Classiying info - how "heavy" the changes in block size and wind speed are
+# Block info
+small_block = -5 # Size of small block
+medium_block = 0.0001 # Size of medium block
+large_block = 5 # Size of large block
+# Wind speed
+low_wind = -5 # Wind speed of low wind
+medium_wind = 0.0001 # Wind speed of medium wind
+high_wind = 5 # Wind speed of high wind
+
+classifying_info = [[large_block, high_wind], [large_block, high_wind], [small_block, high_wind], 
+                    [medium_block, high_wind], [large_block, medium_wind], [medium_block, high_wind],
+                    [small_block, medium_wind], [medium_block, low_wind]] 
+# ^ Size of block  (-15 for small,   0.0001 for medium,  15 for large), 
+#   wind speed     (-15 for 0.5 m/s, 0.0001 for 1.0 m/s, 15 for 1.5 m/s)
 video_names_with_end = ["No. 1_L_1.5 _200 _02-18-2025.MOV", "No. 2_L_1.5 _200 _02-19-2025.MOV", "No. 3_S_1.5 _200 _04-03-2025.MOV", 
                         "No. 4_M_1.5 _200 _02-27-2025.MOV", "No. 5_L_1.0 _200 _01-31-2025.MOV", "No. 6_M_1.0 _200 _02-13-2025.MOV",
                         "No. 7_S_1.0 _200 _03-27-2025.MOV", "No. 10_M_0.5 _200 _03-12-2025.MOV"]
-num_components = 10
+
 video_names = [name[:-4] for name in video_names_with_end]
 
 # Device setup
@@ -33,6 +47,11 @@ if torch.cuda.is_available():
     print(f"GPU name: {torch.cuda.get_device_name(0)}")
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Using device: {device}")
+
+# Ask if user wants to run FFMPEG - if not, skip the video extraction step
+ffmpeg_answer = input("Do you want to run FFMPEG to extract frames from videos? (y/n): ")
+if ffmpeg_answer.lower() != 'y':
+    print("Skipping FFMPEG extraction step.")
 
 # Load ResNet50
 model = models.resnet50(weights=models.ResNet50_Weights.IMAGENET1K_V1)
@@ -64,16 +83,20 @@ all_identifiers = []
 video_idx = 0 # track video ID
 
 for video_name in video_names:
-    video_path = "../Videos/" + video_names_with_end[video_idx]
-    if not os.path.exists(video_path):
-        print(f"Video {video_path} does not exist. Skipping.")
-        continue
+    output_dir = "../Videos/extracted/" + video_name + "/" # kept out of if statement so image processing works
 
-    output_dir = "../Videos/extracted/" + video_name + "/"
-    os.makedirs(output_dir, exist_ok=True)
-    print(f"Extracting frames from {video_path}...")
-    # ffmpeg has a python library - not even surprised lol - but great, makes my job easier
-    ffmpeg.input(video_path).output(f"{output_dir}/%04d.png", format="image2", vcodec="png", r=5).run(overwrite_output=True)
+    if ffmpeg_answer.lower() == 'y':
+        video_path = "../Videos/" + video_names_with_end[video_idx]
+
+        if not os.path.exists(video_path):
+            print(f"Video {video_path} does not exist. Skipping.")
+            continue
+        
+       
+        os.makedirs(output_dir, exist_ok=True)
+        print(f"Extracting frames from {video_path}...")
+        # ffmpeg has a python library - not even surprised lol - but great, makes my job easier
+        ffmpeg.input(video_path).output(f"{output_dir}/%04d.png", format="image2", vcodec="png", r=5).run(overwrite_output=True)
 
     # Process images
     for img_name in tqdm.tqdm(os.listdir(output_dir), desc=f"Processing images for {video_name}"):
@@ -83,7 +106,7 @@ for video_name in video_names:
             if features is None:  # Probably won't be an issue, but I don't want to have to rerun the whole thing if I can avoid it
                 print(f"Skipping {img_name} due to extraction error.")
                 continue
-            # Combine ResNet50 features with classifying info
+            # Combine features with classifying info
             feature_vector = np.concatenate([features, classifying_info[video_idx]])
             all_feature_vectors.append(feature_vector)
         all_identifiers.append(f"{video_name}/{img_name}")  # Unique identifier for each image - why not, better to add now then want them later and not have them

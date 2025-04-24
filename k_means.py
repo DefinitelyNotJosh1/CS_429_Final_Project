@@ -8,18 +8,20 @@ import numpy as np
 import matplotlib.colors as mcolors
 
 
+num_clusters = 16 # Number of clusters for K-Means
+
 # Load feature vectors
-df = pd.read_csv("S_1.0_200_pca_components.csv", index_col=0)
+df = pd.read_csv("pca_components.csv", index_col=0)
 features = df.values
 
 # Apply K-Means clustering
-kmeans = KMeans(n_clusters=5, random_state=42)
+kmeans = KMeans(n_clusters=num_clusters, random_state=42)
 clusters = kmeans.fit_predict(features)
 
 # Add cluster labels to DataFrame
 df["cluster"] = clusters
-df.to_csv("S_1.0_200_clustered_features.csv")
-print("Cluster assignments saved to S_1.0_200_clustered_features.csv")
+df.to_csv("clustered_features.csv")
+print("Cluster assignments saved to clustered_features.csv")
 
 
 # Visualize the clusters in 3D
@@ -54,6 +56,10 @@ plt.ylabel("PCA Component 2")
 plt.colorbar(scatter, label='Cluster')
 plt.legend()
 
+# Create a an array of numbers of increasing increment for the number of clusters
+tick_count = np.arange(0, num_clusters)
+tick_count = tick_count.tolist()
+
 ###
 #    Indiana added a graph to display the different labels through the video
 #    (currently with 5 clusters)
@@ -66,8 +72,9 @@ labels = df.iloc[:, -1]
 numeric_labels = labels.astype(int).to_numpy().reshape(1, -1)  # shape (1, N)
 
 # Set up colormap and normalization
-cmap = mcolors.ListedColormap(['blue', 'orange', 'yellow', 'red', 'green'])
-bounds = [0, 1, 2, 3, 4, 5]
+cmap = mcolors.ListedColormap(['blue', 'orange', 'yellow', 'red', 'green', 'purple', 'pink', 'brown', 'gray', 'cyan', 'magenta', 'lime', 'teal', 'navy', 'olive', 'maroon', 'coral'])
+bounds = np.arange(0, num_clusters + 1)  # bounds for the colormap
+bounds = bounds.tolist()
 norm = mcolors.BoundaryNorm(bounds, cmap.N)
 
 # Plot using imshow
@@ -76,11 +83,25 @@ plt.imshow(numeric_labels, aspect='auto', cmap=cmap, norm=norm)
 plt.title("Frame Labels Over Time")
 plt.xlabel("Frame Index (Time)")
 plt.yticks([])  # hide y-axis
-plt.colorbar(ticks=[0, 1, 2, 3, 4], label='Label')
+plt.colorbar(ticks=tick_count, label='Label')
 plt.tight_layout()
 
 # Show the plot
 plt.show()
 
-print("Explained variance ratio:", pca.explained_variance_ratio_)
-print("Total variance explained:", sum(pca.explained_variance_ratio_))
+# Find cluster classifications for each video
+df['video_id'] = df.index.to_series().apply(lambda x: x.split('/')[0]) # split the index to get video ID
+video_groups = df.groupby('video_id')
+num_videos = len(video_groups)
+plt.figure(figsize=(20, 2 * num_videos))
+for idx, (video_id, group) in enumerate(video_groups):
+    video_labels = group['cluster'].astype(int).to_numpy().reshape(1, -1)
+    plt.subplot(num_videos, 1, idx + 1)
+    plt.imshow(video_labels, aspect='auto', cmap=cmap, norm=norm)
+    plt.title(f"Group Layout Over Time - {video_id}")
+    plt.xlabel("Frame Index (Time)")
+    plt.yticks([])
+    plt.colorbar(ticks=tick_count, label='Label')
+plt.tight_layout()
+plt.savefig("resnet_group_layout_over_time_-5-5_range.png")
+plt.show()

@@ -16,29 +16,29 @@ feature_vectors = df.values
 print(feature_vectors.shape)
 
 # Graph PCA total variance explained over number of components
-# i = 1
-# explained_variance = []
-# for i in range(1, 80):
-#     pca = PCA(n_components=i)
-#     pca.fit(feature_vectors)
-#     explained_variance.append(sum(pca.explained_variance_ratio_))
-#     print(f"Components: {i}, Explained Variance: {sum(pca.explained_variance_ratio_)}")
+i = 1
+explained_variance = []
+for i in range(1, 80):
+    pca = PCA(n_components=i)
+    pca.fit(feature_vectors)
+    explained_variance.append(sum(pca.explained_variance_ratio_))
+    print(f"Components: {i}, Explained Variance: {sum(pca.explained_variance_ratio_)}")
 
-# plt.figure(figsize=(10, 6))
-# plt.plot(range(1, len(explained_variance) + 1), explained_variance)
-# plt.title("Cumulative Explained Variance by PCA Components")
-# plt.xlabel("Number of Components")
-# plt.ylabel("Cumulative Explained Variance")
-# plt.savefig("explained_variance.png")
-# plt.show()
+plt.figure(figsize=(10, 6))
+plt.plot(range(1, len(explained_variance) + 1), explained_variance)
+plt.title("Cumulative Explained Variance by PCA Components")
+plt.xlabel("Number of Components")
+plt.ylabel("Cumulative Explained Variance")
+plt.savefig("resnet-explained_variance_-5-5_range.png")
+plt.show()
 
 # Perform PCA
-pca = PCA(n_components=num_components)
-pca.fit(feature_vectors)
-explained_variance = pca.explained_variance_ratio_
-print("Explained variance ratio:", explained_variance)
-print("Total variance explained:", sum(explained_variance))
-print("PCA completed.")
+# pca = PCA(n_components=num_components)
+# pca.fit(feature_vectors)
+# explained_variance = pca.explained_variance_ratio_
+# print("Explained variance ratio:", explained_variance)
+# print("Total variance explained:", sum(explained_variance))
+# print("PCA completed.")
 
 
 # Save PCA components to CSV

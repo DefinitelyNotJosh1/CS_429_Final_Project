@@ -1,5 +1,6 @@
 # K-Means clustering script - runs on 
 
+import datetime
 from sklearn.cluster import KMeans
 from mpl_toolkits.mplot3d import Axes3D
 from sklearn.decomposition import PCA
@@ -37,7 +38,7 @@ ax.set_xlabel("PCA Component 1")
 ax.set_ylabel("PCA Component 2")
 ax.set_zlabel("PCA Component 3")
 plt.colorbar(scatter, label='Cluster')
-plt.show()
+#plt.show()
 
 # Reduce dimensionality to 2D
 pca = PCA(n_components=2)
@@ -89,15 +90,26 @@ plt.colorbar(ticks=tick_count, label='Label')
 plt.tight_layout()
 
 # Show the plot
-plt.show()
+#plt.show()
 
 # Find cluster classifications for each video
 df['video_id'] = df.index.to_series().apply(lambda x: x.split('/')[0]) # split the index to get video ID
 video_groups = df.groupby('video_id')
 num_videos = len(video_groups)
 plt.figure(figsize=(20, 2 * num_videos))
+
+first_flame_instances = {}
+
 for idx, (video_id, group) in enumerate(video_groups):
     video_labels = group['cluster'].astype(int).to_numpy().reshape(1, -1)
+
+    # Find the first occurrence of cluster 6 (flame) in the labels
+    flame_frames = (video_labels == 6).nonzero()[1]  # Index where cluster 6 occurs
+    first_flame_frame = flame_frames[0] if len(flame_frames) > 0 else None
+
+    # Store the first frame where cluster 6 is detected
+    first_flame_instances[video_id] = first_flame_frame
+
     plt.subplot(num_videos, 1, idx + 1)
     plt.imshow(video_labels, aspect='auto', cmap=cmap, norm=norm)
     plt.title(f"Group Layout Over Time - {video_id}")
@@ -106,4 +118,15 @@ for idx, (video_id, group) in enumerate(video_groups):
     plt.colorbar(ticks=tick_count, label='Label')
 plt.tight_layout()
 plt.savefig("resnet_group_layout_over_time_-1-1_range.png")
-plt.show()
+#plt.show()
+
+# Print the first instance of cluster 6 for each video
+print("First instances of cluster 6 (flame) in each video:")
+for video_id, frame in first_flame_instances.items():
+    if frame is not None:
+        # Convert frame number to timestamp
+        secs = frame / 5  # 5 fps
+        timestamp = str(datetime.timedelta(seconds=secs))
+        print(f"{video_id}: Frame {frame} (Timestamp: {timestamp})")
+    else:
+        print(f"{video_id}: No flame detected")

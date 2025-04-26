@@ -11,7 +11,7 @@ import numpy as np
 import matplotlib.colors as mcolors
 
 
-num_clusters = 10 # Number of clusters for K-Means
+num_clusters = 12 # Number of clusters for K-Means
 
 # Load feature vectors
 df = pd.read_csv("pca_components.csv", index_col=0)

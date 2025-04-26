@@ -9,7 +9,7 @@ from sklearn.model_selection import train_test_split
 from torch.utils.data import TensorDataset, DataLoader
 
 # Get number of output classes
-num_classes = 10 # Number of clusters from K-Means
+num_classes = 12 # Number of clusters from K-Means
 
 # Load feature vectors
 df = pd.read_csv("clustered_features.csv", index_col=0)

@@ -1,0 +1,31 @@
+PS C:\Users\Joshua\Documents\UP\CS-429\Final_Project\CS_429_Final_Project\predict_time_josh\FIND_BEST_MODEL\third_iteration> & C:/Users/Joshua/.pyenv/pyenv-win/versions/3.11.9/python.exe c:/Users/Joshua/Documents/UP/CS-429/Final_Project/CS_429_Final_Project/predict_time_josh/FIND_BEST_MODEL/third_iteration/find_best_3.py
+
+Testing architecture: [256, 128, 64], Dropout: 0.2
+
+Testing architecture: [256, 128, 64, 32], Dropout: 0.2
+
+Testing architecture: [256, 128, 64, 32, 16], Dropout: 0.2
+
+Testing architecture: [320, 160, 80], Dropout: 0.2
+
+Testing architecture: [224, 112, 56], Dropout: 0.2
+
+Testing architecture: [256, 128, 64], Dropout: 0.15
+
+Testing architecture: [256, 128, 64], Dropout: 0.25
+
+Testing architecture: [288, 144, 72, 36], Dropout: 0.2
+
+Testing architecture: [256, 192, 128, 64], Dropout: 0.2
+
+Testing architecture: [256, 160, 128, 96, 64], Dropout: 0.2
+
+Best Refined Model:
+Architecture: [320, 160, 80]
+Dropout Rate: 0.2
+Test Accuracy: 67.16%
+Test Loss: 15693.7038
+Model saved as: flame_frame_predictor_refined_45385a53-cef3-4b4f-ac49-8d356ec5449b.pth
+
+Total time taken: 2496.48 seconds or 41.61 minutes
+Architecture refinement complete

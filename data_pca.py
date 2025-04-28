@@ -7,11 +7,13 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 import os
+import joblib
 
 num_components = 20 # Number of PCA components to keep
 
 df = pd.read_csv("feature_vectors.csv", index_col=0)
 feature_vectors = df.values
+feature_names = df.columns
 
 print(feature_vectors.shape)
 
@@ -39,6 +41,10 @@ explained_variance = pca.explained_variance_ratio_
 print("Explained variance ratio:", explained_variance)
 print("Total variance explained:", sum(explained_variance))
 print("PCA completed.")
+
+# joblib.dump(pca, "pca_model.pkl")
+
+
 
 
 # Save PCA components to CSV

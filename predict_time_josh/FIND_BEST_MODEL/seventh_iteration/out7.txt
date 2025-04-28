@@ -1,0 +1,87 @@
+
+Testing architecture: [2048, 1024], Dropout: 0
+Results for Architecture: [2048, 1024], Dropout: 0
+Test Accuracy: 79.75%
+Test Loss: 8380.8792
+Model saved as: flame_frame_predictor_refined_365a894f-ee27-46f9-bc26-44e88afd6ec3.pth
+
+Testing architecture: [2048, 1024], Dropout: 0.2
+Results for Architecture: [2048, 1024], Dropout: 0.2
+Test Accuracy: 74.39%
+Test Loss: 11755.8011
+Model saved as: flame_frame_predictor_refined_2e3a1297-dc6a-4c57-92b4-94b565a8c212.pth
+
+Testing architecture: [2048, 1024, 512], Dropout: 0
+Results for Architecture: [2048, 1024, 512], Dropout: 0
+Test Accuracy: 85.66%
+Test Loss: 6741.0033
+Model saved as: flame_frame_predictor_refined_7b14c6a8-a91a-4a95-b046-f592db34a89b.pth
+
+Testing architecture: [2048, 1024, 512], Dropout: 0.15
+Results for Architecture: [2048, 1024, 512], Dropout: 0.15
+Test Accuracy: 48.31%
+Test Loss: 30304.5653
+Model saved as: flame_frame_predictor_refined_e6b359e1-618d-456a-83cf-30ff639bebdf.pth
+
+Testing architecture: [512, 384, 256], Dropout: 0
+Results for Architecture: [512, 384, 256], Dropout: 0
+Test Accuracy: 83.68%
+Test Loss: 7097.6386
+Model saved as: flame_frame_predictor_refined_19521052-533a-4bbf-8b50-8c6295ffa773.pth
+
+Testing architecture: [384, 192, 96], Dropout: 0.2
+Results for Architecture: [384, 192, 96], Dropout: 0.2
+Test Accuracy: 57.26%
+Test Loss: 27011.1032
+Model saved as: flame_frame_predictor_refined_71c4f0f6-7bbc-4b78-b593-a0c6ebe31777.pth
+
+Testing architecture: [896, 448], Dropout: 0.1
+Results for Architecture: [896, 448], Dropout: 0.1
+Test Accuracy: 68.49%
+Test Loss: 14521.1312
+Model saved as: flame_frame_predictor_refined_c79f2654-1c6c-4a4c-9798-06f5714a2db5.pth
+
+Testing architecture: [896, 448], Dropout: 0
+Results for Architecture: [896, 448], Dropout: 0
+Test Accuracy: 80.69%
+Test Loss: 8543.0985
+Model saved as: flame_frame_predictor_refined_266e4a09-16cb-47e2-a704-ea21e979b802.pth
+
+Testing architecture: [896, 448, 224], Dropout: 0.1
+Results for Architecture: [896, 448, 224], Dropout: 0.1
+Test Accuracy: 68.79%
+Test Loss: 15305.2213
+Model saved as: flame_frame_predictor_refined_ab598fe1-55dc-4ff7-a063-261b803005a2.pth
+
+Testing architecture: [640, 320], Dropout: 0.1
+Results for Architecture: [640, 320], Dropout: 0.1
+Test Accuracy: 69.01%
+Test Loss: 14759.2856
+Model saved as: flame_frame_predictor_refined_d8bc1169-b60f-4479-97f3-85ac008d0d02.pth
+
+Testing architecture: [640, 320], Dropout: 0
+Results for Architecture: [640, 320], Dropout: 0
+Test Accuracy: 82.52%
+Test Loss: 7849.1607
+Model saved as: flame_frame_predictor_refined_91027490-d9cf-4e3b-ab6f-660818331c22.pth
+Testing architecture: [640, 320, 160], Dropout: 0.1
+Results for Architecture: [640, 320, 160], Dropout: 0.1
+Test Accuracy: 56.81%
+Testing architecture: [640, 320, 160], Dropout: 0.1
+Results for Architecture: [640, 320, 160], Dropout: 0.1
+Test Accuracy: 56.81%
+Test Loss: 20545.4932
+Model saved as: flame_frame_predictor_refined_58f8a9cd-abf1-49ba-94ea-4e956533e2c3.pth  
+Test Accuracy: 82.74%
+Test Loss: 7539.9288
+Model saved as: flame_frame_predictor_refined_d2430b17-81cd-4608-ac01-39d7b1240693.pth
+
+Best Refined Model:
+Architecture: [2048, 1024, 512]
+Dropout Rate: 0
+Test Accuracy: 85.66%
+Test Loss: 6741.0033
+Model saved as: flame_frame_predictor_refined_7b14c6a8-a91a-4a95-b046-f592db34a89b.pth
+
+Total time taken: 8171.81 seconds or 136.20 minutes
+Architecture refinement complete.

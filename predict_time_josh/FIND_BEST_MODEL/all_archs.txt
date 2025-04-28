@@ -1,0 +1,102 @@
+Iteration 1
+architectures = [
+    [64, 32],              # Small
+    [128, 64, 32],         # Medium
+    [256, 128, 64],        # Medium-Large
+    [512, 256, 64],        # Large
+    [1024, 512, 256, 64],  # Extra Large
+]
+Iteration 2
+architectures = [
+    {'layers': [256, 128, 64], 'dropout': 0.3},               # Original best
+    {'layers': [256, 128, 64, 32], 'dropout': 0.3},           # Add one layer
+    {'layers': [256, 128, 64, 32, 16], 'dropout': 0.3},       # Add two layers
+    {'layers': [384, 192, 96], 'dropout': 0.3},               # Increase sizes
+    {'layers': [192, 96, 48], 'dropout': 0.3},                # Decrease sizes
+    {'layers': [256, 128, 64], 'dropout': 0.2},               # Lower dropout
+    {'layers': [256, 128, 64], 'dropout': 0.4},               # Higher dropout
+    {'layers': [320, 160, 80, 40], 'dropout': 0.3},           # More layers, scaled
+    {'layers': [256, 192, 128, 64], 'dropout': 0.3},          # Gradual decrease
+    {'layers': [256, 128, 96, 64, 32], 'dropout': 0.3},       # Extended gradual
+]
+Iteration 3
+architectures = [
+    {'layers': [256, 128, 64], 'dropout': 0.2},               # Original best
+    {'layers': [256, 128, 64, 32], 'dropout': 0.2},           # Add one layer
+    {'layers': [256, 128, 64, 32, 16], 'dropout': 0.2},       # Add two layers
+    {'layers': [320, 160, 80], 'dropout': 0.2},               # Increase sizes
+    {'layers': [224, 112, 56], 'dropout': 0.2},               # Decrease sizes
+    {'layers': [256, 128, 64], 'dropout': 0.15},              # Lower dropout
+    {'layers': [256, 128, 64], 'dropout': 0.25},              # Higher dropout
+    {'layers': [288, 144, 72, 36], 'dropout': 0.2},           # More layers, scaled
+    {'layers': [256, 192, 128, 64], 'dropout': 0.2},          # Smoother decrease
+    {'layers': [256, 160, 128, 96, 64], 'dropout': 0.2},      # Extended gradual
+]
+Iteration 4
+architectures = [
+    {'layers': [320, 160, 80], 'dropout': 0.2},               # Original best
+    {'layers': [320, 160, 80, 40], 'dropout': 0.2},           # Add one layer
+    {'layers': [320, 160, 80, 40, 20], 'dropout': 0.2},       # Add two layers
+    {'layers': [384, 192, 96], 'dropout': 0.2},               # Increase sizes
+    {'layers': [256, 128, 64], 'dropout': 0.2},               # Decrease sizes
+    {'layers': [320, 160, 80], 'dropout': 0.15},              # Lower dropout
+    {'layers': [320, 160, 80], 'dropout': 0.25},              # Higher dropout
+    {'layers': [352, 176, 88, 44], 'dropout': 0.2},           # More layers, scaled
+    {'layers': [320, 240, 160, 80], 'dropout': 0.2},          # Smoother decrease
+    {'layers': [320, 200, 160, 120, 80], 'dropout': 0.2},     # Extended gradual
+]
+Iteration 5
+architectures = [
+    {'layers': [384, 192, 96], 'dropout': 0.2},               # Original best
+    {'layers': [384, 192, 96, 48], 'dropout': 0.2},           # Add one layer
+    {'layers': [384, 192, 96, 48, 24], 'dropout': 0.2},       # Add two layers
+    {'layers': [448, 224, 112], 'dropout': 0.2},              # Increase sizes
+    {'layers': [320, 160, 80], 'dropout': 0.2},               # Keep this one to compare
+    {'layers': [384, 192, 96], 'dropout': 0.15},              # Lower dropout
+    {'layers': [384, 192, 96], 'dropout': 0.25},              # Higher dropout
+    {'layers': [416, 208, 104, 52], 'dropout': 0.2},          # More layers, scaled
+    {'layers': [384, 288, 192, 96], 'dropout': 0.2},          # Smoother decrease
+    {'layers': [384, 256, 192, 144, 96], 'dropout': 0.2},     # Extended gradual
+    {'layers': [512, 256], 'dropout': 0.3},                   # Why not, gonna leave it running anwyay
+    {'layers': [512, 256], 'dropout': 0.2},                   # ^
+    {'layers': [512, 256], 'dropout': 0.1},                   # ^
+]
+Iteration 6
+architectures = [
+    {'layers': [384, 192, 96], 'dropout': 0.2},               # Tend to perform well, keeping
+    {'layers': [320, 160, 80], 'dropout': 0.2},               # ^
+    {'layers': [512, 256], 'dropout': 0.2},                   # previous good performer
+    {'layers': [512, 256], 'dropout': 0.1},                   # previous best
+    {'layers': [512, 256], 'dropout': 0},                     # alterations
+    {'layers': [768, 384], 'dropout': 0.2},                   # scale up
+    {'layers': [768, 384], 'dropout': 0.1},                   # ^
+    {'layers': [768, 384], 'dropout': 0},                     # ^
+    {'layers': [1024, 512], 'dropout': 0.2},                  # scale up more
+    {'layers': [1024, 512], 'dropout': 0.1},                  # ^
+    {'layers': [1024, 512], 'dropout': 0},                    # ^ 
+    {'layers': [512, 256, 128], 'dropout': 0.1},              # Add one layer
+    {'layers': [512, 256, 128, 64], 'dropout': 0.1},          # Add two layers
+    {'layers': [576, 288], 'dropout': 0.1},                   # Increase sizes
+    {'layers': [448, 224], 'dropout': 0.1},                   # Decrease sizes
+    {'layers': [512, 256], 'dropout': 0.05},                  # Lower dropout
+    {'layers': [512, 256], 'dropout': 0.15},                  # Higher dropout
+    {'layers': [544, 272, 136], 'dropout': 0.1},              # More layers, scaled
+    {'layers': [512, 384, 256], 'dropout': 0.1},              # Smoother decrease
+    {'layers': [512, 384, 256, 192], 'dropout': 0.1},         # Extended gradual
+]
+Iteration 7
+architectures = [
+    {'layers': [2048, 1024], 'dropout': 0},            # Try this
+    {'layers': [2048, 1024], 'dropout': 0.2},          # and this
+    {'layers': [2048, 1024, 512], 'dropout': 0},       # This as well, add a layer
+    {'layers': [2048, 1024, 512], 'dropout': 0.15},    # might as well
+    {'layers': [512, 384, 256], 'dropout': 0},         # Smoother decrease, no dropout
+    {'layers': [384, 192, 96], 'dropout': 0.2},        # Just for comparison
+    {'layers': [896, 448], 'dropout': 0.1},            # Bigger layers, less dropout
+    {'layers': [896, 448], 'dropout': 0},              # ^ no dropout
+    {'layers': [896, 448, 224], 'dropout': 0.1},       # ^ add a layer
+    {'layers': [640, 320], 'dropout': 0.1},            # middle ground layers
+    {'layers': [640, 320], 'dropout': 0},              # ^ no dropout
+    {'layers': [640, 320, 160], 'dropout': 0.1},       # ^ add a layer
+    {'layers': [640, 320, 160], 'dropout': 0},         # ^ add a layer no dropout
+]

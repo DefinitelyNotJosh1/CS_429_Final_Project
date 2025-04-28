@@ -1,0 +1,22 @@
+PS C:\Users\Joshua\Documents\UP\CS-429\Final_Project\CS_429_Final_Project\predict_time_josh\FIND_BEST_MODEL> & C:/Users/Joshua/.pyenv/pyenv-win/versions/3.11.9/python.exe c:/Users/Joshua/Documents/UP/CS-429/Final_Project/CS_429_Final_Project/predict_time_josh/FIND_BEST_MODEL/find_best_model.py
+
+Testing architecture: [64, 32]
+c:\Users\Joshua\Documents\UP\CS-429\Final_Project\CS_429_Final_Project\predict_time_josh\FIND_BEST_MODEL\find_best_model.py:98: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\aten\src\ATen\native\Scalar.cpp:23.)
+  train_loss += loss.item() * X_batch.size(0)
+
+
+Testing architecture: [256, 128, 64]
+
+Testing architecture: [512, 256, 64]
+
+Testing architecture: [1024, 512, 256, 64]
+
+Best Model:
+Architecture: [256, 128, 64]
+Test Accuracy: 56.19%
+Test Loss: 30431.7249
+Model saved as: flame_frame_predictor_cca76ff5-708d-44f9-af7b-10fa4cac5d7a.pth
+
+Total time taken: 1506.86 seconds or 25.11 minutes
+Architecture testing complete.

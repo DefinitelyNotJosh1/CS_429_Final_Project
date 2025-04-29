@@ -24,6 +24,7 @@ Josh's efforts with a burn prediction network
 Efforts to find the best model - 7 iterations/generations
 #### misc.
 all_archs.txt - All the architectures tested
+
 PCA_20_flame_frame_data.csv - data used for training
 
 #### image directory
@@ -37,7 +38,9 @@ Various scripts/models created during the fine-tuning process
 
 #### misc. 
 PREDICTOR.py - Predicts the time until/how long an image has been burning using the final model chosen
+
 separate_features.py - separates video data into separate features and adds label for training (distance from "flame frame")
+
 pca_model.pkl - PCA model used for prediction of an image
 
 ### image_simple
@@ -45,10 +48,17 @@ Directory to put an image in for the simple neural network prediction
 
 ### misc.
 image_extractor.py - converts an image in the image_simple directory into a feature vector CSV
+
 data_preprocess.py - main preprocessing script. 
+
 change_class_info.py - used to alter the 'weight' of wind speed and block size - didn't end up being useful unfortunately
+
 data_pca.py - deprecated, now ran in data_preprocess.py automatically. Ran PCA on the full feature vector dataset.
+
 k_means.py - runs k-means clustering on the PCA'd dataset
+
 convenience.py - convenience script I ran during data collection
+
 simple_nn.py - a simple neural network for classifying the data
+
 test_nn.py - predicts if the picture is on fire, when it will catch fire in the video, etc

@@ -16,6 +16,7 @@ Time prediction neural network: predicts how long it will be until a block catch
 2. Run Predictor.py.
 
 ## FILE EXPLANATION
+```
 ├── Potential_Deliverables/ (Charts from data analysis varying wind speed and block size weight)
 
 ├── predict_time_josh/
@@ -59,3 +60,4 @@ Time prediction neural network: predicts how long it will be until a block catch
 ├── simple_nn.py  (Simple neural network for classification)
 
 └── test_nn.py  (Predicts fire timing and status)
+```

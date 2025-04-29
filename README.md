@@ -16,10 +16,9 @@ Time prediction neural network: predicts how long it will be until a block catch
 2. Run Predictor.py.
 
 ## FILE EXPLANATION
-Potential_Deliverables/
-    (Charts from data analysis varying wind speed and block size weight)
+#### Potential_Deliverables/ (Charts from data analysis varying wind speed and block size weight)
 
-predict_time_josh/
+#### predict_time_josh/
 
 ├── FIND_BEST_MODEL/
 
@@ -64,12 +63,10 @@ predict_time_josh/
 └── pca_model.pkl (PCA model for predictions)
 
 
-image_simple/
-
-    (Directory for images for simple neural network)
+image_simple/ (Directory for images for simple neural network)
 
 
-Miscellaneous files (root level):
+#### Miscellaneous files (root level):
 
 ├── image_extractor.py (Converts image to feature vector CSV)
 

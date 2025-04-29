@@ -1,24 +1,32 @@
-# Data processing stuff for a bunch of fire videos we got
+Data processing stuff for a bunch of fire videos we got
+HOW TO USE
+We have two interactive options:
 
-## HOW TO USE:
-We have two interactive options - the simple neural network that uses k-means clustering to give the time in a video a block is expected to catch fire/if it will catch on fire at all, and the network that predicts how long it will be until a block catches fire.
+Simple neural network: uses k-means clustering to give the time in a video a block is expected to catch fire, or if it will catch fire at all.
 
-#### Simple neural network:
-1. Put an image in the image_simple directory
-2. Run "image_extractor.py"
-3. Run "test_nn.py"
+Time prediction neural network: predicts how long it will be until a block catches fire.
 
-#### Time prediction neural network:
-1. Put an image in the predict_time_josh/image directory
-2. Run Predictor.py
+Simple neural network
+Put an image in the image_simple directory.
 
+Run image_extractor.py.
 
-## FILE EXPLANATION
+Run test_nn.py.
 
-### Potential_Deliverables/
+Time prediction neural network
+Put an image in the predict_time_josh/image directory.
+
+Run Predictor.py.
+
+FILE EXPLANATION
+<details> <summary><strong>Directory Tree</strong></summary>
+plaintext
+Copy
+Edit
+Potential_Deliverables/
     (Charts from data analysis varying wind speed and block size weight)
 
-### predict_time_josh/
+predict_time_josh/
 ├── FIND_BEST_MODEL/
 │   (Scripts, models, and text outputs from 7 iterations)
 │
@@ -41,10 +49,10 @@ We have two interactive options - the simple neural network that uses k-means cl
 ├── separate_features.py (Separates video data into features/labels)
 └── pca_model.pkl (PCA model for predictions)
 
-#### image_simple/
+image_simple/
     (Directory for images for simple neural network)
 
-#### misc files (root level):
+Miscellaneous files (root level):
 ├── image_extractor.py (Converts image to feature vector CSV)
 ├── data_preprocess.py (Main preprocessing script)
 ├── change_class_info.py (Script to alter wind speed and block size weight - unused)
@@ -53,3 +61,4 @@ We have two interactive options - the simple neural network that uses k-means cl
 ├── convenience.py (Convenience script for data collection)
 ├── simple_nn.py (Simple neural network for classification)
 └── test_nn.py (Predicts fire timing and status)
+</details>

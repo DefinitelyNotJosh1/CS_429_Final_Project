@@ -1,28 +1,21 @@
-Data processing stuff for a bunch of fire videos we got
-HOW TO USE
-We have two interactive options:
+## Data processing stuff for a bunch of fire videos we got
+### HOW TO USE
+#### We have two interactive options:
 
 Simple neural network: uses k-means clustering to give the time in a video a block is expected to catch fire, or if it will catch fire at all.
 
 Time prediction neural network: predicts how long it will be until a block catches fire.
 
-Simple neural network
-Put an image in the image_simple directory.
+#### Simple neural network
+1. Put an image in the image_simple directory.
+2. Run image_extractor.py.
+3. Run test_nn.py.
 
-Run image_extractor.py.
+#### Time prediction neural network
+1. Put an image in the predict_time_josh/image directory.
+2. Run Predictor.py.
 
-Run test_nn.py.
-
-Time prediction neural network
-Put an image in the predict_time_josh/image directory.
-
-Run Predictor.py.
-
-FILE EXPLANATION
-<details> <summary><strong>Directory Tree</strong></summary>
-plaintext
-Copy
-Edit
+## FILE EXPLANATION
 Potential_Deliverables/
     (Charts from data analysis varying wind speed and block size weight)
 
@@ -61,4 +54,3 @@ Miscellaneous files (root level):
 ├── convenience.py (Convenience script for data collection)
 ├── simple_nn.py (Simple neural network for classification)
 └── test_nn.py (Predicts fire timing and status)
-</details>

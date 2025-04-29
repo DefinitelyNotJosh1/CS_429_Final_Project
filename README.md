@@ -16,58 +16,46 @@ Time prediction neural network: predicts how long it will be until a block catch
 2. Run Predictor.py.
 
 ## FILE EXPLANATION
-├── Potential_Deliverables/ 
-
-│    (Charts from data analysis varying wind speed and block size weight)
+├── Potential_Deliverables/ (Charts from data analysis varying wind speed and block size weight)
 
 ├── predict_time_josh/
 
-│ ├── FIND_BEST_MODEL/
+│   ├── FIND_BEST_MODEL/
 
-│ ├── ####_iteration/ directories
+│     ├── ####_iteration/  (Scripts, models, and text outputs from 7 iterations)
 
-│ │   (Scripts, models, and text outputs from 7 iterations)
+│     ├── further_training/  (Scripts and models for fine-tuning)
 
-│ ├── further_training/
+│     ├── all_archs.txt  (All architectures tested)
 
-│ │   (Scripts and models for fine-tuning)
+│     └── PCA_20_flame_frame_data.csv (Training data)
 
-│ ├── image/
+│   ├── image/  (Image to be predicted)
 
-│ │   (Image to be predicted)
+│   ├── old_data/  (Old data not used but kept)
 
-│ ├── old_data/
+│   │
 
-│ │   (Old data not used but kept)
+│   ├── pca_model.pkl (PCA model for predictions)
 
-│ │
+│   ├── PREDICTOR.py (Final model prediction script)
 
-│ ├── all_archs.txt (All architectures tested)
+│   └── separate_features.py (Separates video data into features/labels)
 
-│ ├── PCA_20_flame_frame_data.csv (Training data)
+├── image_simple/  (Directory for images for simple neural network)
 
-│ ├── PREDICTOR.py (Final model prediction script)
+├── image_extractor.py  (Converts image to feature vector CSV)
 
-│ ├── separate_features.py (Separates video data into features/labels)
+├── data_preprocess.py  (Main preprocessing script)
 
-│ └── pca_model.pkl (PCA model for predictions)
+├── change_class_info.py  (Script to alter wind speed and block size weight - unused)
 
-├── image_simple/ 
+├── data_pca.py  (Deprecated PCA script)
 
-│    (Directory for images for simple neural network)
+├── k_means.py  (Runs k-means clustering)
 
-├── image_extractor.py (Converts image to feature vector CSV)
+├── convenience.py  (Convenience script for data collection)
 
-├── data_preprocess.py (Main preprocessing script)
+├── simple_nn.py  (Simple neural network for classification)
 
-├── change_class_info.py (Script to alter wind speed and block size weight - unused)
-
-├── data_pca.py (Deprecated PCA script)
-
-├── k_means.py (Runs k-means clustering)
-
-├── convenience.py (Convenience script for data collection)
-
-├── simple_nn.py (Simple neural network for classification)
-
-└── test_nn.py (Predicts fire timing and status)
+└── test_nn.py  (Predicts fire timing and status)

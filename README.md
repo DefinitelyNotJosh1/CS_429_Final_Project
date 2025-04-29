@@ -16,7 +16,9 @@ Time prediction neural network: predicts how long it will be until a block catch
 2. Run Predictor.py.
 
 ## FILE EXPLANATION
+Not everything included in tree, some unimportant files are not included
 ```
+CS_429_Final_Project
 ├── Potential_Deliverables/ (DIRECTORY: Charts from data analysis varying wind speed and block size weight)
 │
 ├── predict_time_josh/  (DIRECTORY: used for prediction model)
@@ -47,6 +49,8 @@ Time prediction neural network: predicts how long it will be until a block catch
 │
 │
 ├── image_extractor.py  (Converts image to feature vector CSV)
+│
+├── image_output.csv  (Output of image_extractor.py)
 │
 ├── data_preprocess.py  (Main preprocessing script)
 │

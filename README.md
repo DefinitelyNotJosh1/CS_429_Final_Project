@@ -20,45 +20,45 @@ Time prediction neural network: predicts how long it will be until a block catch
 
 ├── predict_time_josh/
 
-| ├── FIND_BEST_MODEL/
+│ ├── FIND_BEST_MODEL/
 
-| │   (Scripts, models, and text outputs from 7 iterations)
+│ │   (Scripts, models, and text outputs from 7 iterations)
 
-| ├── all_archs.txt (All architectures tested)
+│ ├── all_archs.txt (All architectures tested)
 
-| └── PCA_20_flame_frame_data.csv (Training data)
+│ └── PCA_20_flame_frame_data.csv (Training data)
 
-| 
+│ 
 
-| ├── image/
+│ ├── image/
 
-| │   (Image to be predicted)
+│ │   (Image to be predicted)
 
-| │
+│ │
 
-| ├── old_data/
+│ ├── old_data/
 
-| │   (Old data not used but kept)
+│ │   (Old data not used but kept)
 
-| │
+│ │
 
-| ├── ####_iteration/ directories
+│ ├── ####_iteration/ directories
 
-| │   (Scripts, models, and text outputs per iteration)
+│ │   (Scripts, models, and text outputs per iteration)
 
-| │
+│ │
 
-| ├── further_training/
+│ ├── further_training/
 
-| │   (Scripts and models for fine-tuning)
+│ │   (Scripts and models for fine-tuning)
 
-| │
+│ │
 
-| ├── PREDICTOR.py (Final model prediction script)
+│ ├── PREDICTOR.py (Final model prediction script)
 
-| ├── separate_features.py (Separates video data into features/labels)
+│ ├── separate_features.py (Separates video data into features/labels)
 
-| └── pca_model.pkl (PCA model for predictions)
+│ └── pca_model.pkl (PCA model for predictions)
 
 ├── image_simple/ (Directory for images for simple neural network)
 

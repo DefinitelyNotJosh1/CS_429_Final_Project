@@ -8,8 +8,7 @@ Time prediction neural network: predicts how long it will be until a block catch
 
 #### Simple neural network
 1. Put an image in the image_simple directory.
-2. Run image_extractor.py.
-3. Run test_nn.py.
+2. Run test_nn.py (also runs image_extractor.py).
 
 #### Time prediction neural network
 1. Put an image in the predict_time_josh/image directory.

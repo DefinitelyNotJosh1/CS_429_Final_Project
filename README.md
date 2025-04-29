@@ -22,19 +22,17 @@ Time prediction neural network: predicts how long it will be until a block catch
 
 │ ├── FIND_BEST_MODEL/
 
+│ ├── ####_iteration/ directories
+
 │ │   (Scripts, models, and text outputs from 7 iterations)
 
-│ ├── all_archs.txt (All architectures tested)
+│ ├── further_training/
 
-│ └── PCA_20_flame_frame_data.csv (Training data)
-
-│ 
+│ │   (Scripts and models for fine-tuning)
 
 │ ├── image/
 
 │ │   (Image to be predicted)
-
-│ │
 
 │ ├── old_data/
 
@@ -42,17 +40,9 @@ Time prediction neural network: predicts how long it will be until a block catch
 
 │ │
 
-│ ├── ####_iteration/ directories
+│ ├── all_archs.txt (All architectures tested)
 
-│ │   (Scripts, models, and text outputs per iteration)
-
-│ │
-
-│ ├── further_training/
-
-│ │   (Scripts and models for fine-tuning)
-
-│ │
+│ ├── PCA_20_flame_frame_data.csv (Training data)
 
 │ ├── PREDICTOR.py (Final model prediction script)
 
@@ -60,7 +50,9 @@ Time prediction neural network: predicts how long it will be until a block catch
 
 │ └── pca_model.pkl (PCA model for predictions)
 
-├── image_simple/ (Directory for images for simple neural network)
+├── image_simple/ 
+
+│    (Directory for images for simple neural network)
 
 ├── image_extractor.py (Converts image to feature vector CSV)
 

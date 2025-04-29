@@ -15,7 +15,7 @@ import tqdm # tqdm is a progress bar library - I just wanted to use it
 start_time = time.time()
 
 # Input data
-num_components = 10 # for PCA
+num_components = 20 # for PCA
 
   
 # Classiying info - how "heavy" the changes in block size and wind speed are

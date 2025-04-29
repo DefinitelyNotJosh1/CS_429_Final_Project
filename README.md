@@ -4,27 +4,36 @@
 Some charts collected from data analysis by changing the 'weight' of the wind speed and blocks size
 
 ### predict_time_josh directory
-Josh's efforts with training a good neural network
+Josh's efforts with a burn prediction network
 #### FIND_BEST_MODEL directory
-Efforts to find the best model - 7 iterations
+Efforts to find the best model - 7 iterations/generations
+#### misc.
+all_archs.txt - All the architectures tested
+PCA_20_flame_frame_data.csv - data used for training
+
 #### image directory
 image that's being predicted
 #### old_data directory
 The aggregation of a lot of data gathered that I didn't want to use but didn't want to totally scrap
+#### ####_iteration directories
+Contains the scripts associated with their iterations, as well as the models and the text output
+#### further_training directory
+Various scripts/models created during the fine-tuning process
+
 #### misc. 
-all_archs.txt - All the architectures tested
-transform_image.py - transforms the image within the 'image' directory
-train_flame.py - The final model chosen
-train_predict.py - Prediction function from the final model chosen
+PREDICTOR.py - Predicts the time until/how long an image has been burning using the final model chosen
 separate_features.py - separates video data into separate features and adds label for training (distance from "flame frame")
-flame_frame_data.csv - processed flame frame data (from 20 PCA)
 pca_model.pkl - PCA model used for prediction of an image
-parsed_image_data.csv - parsed image data for prediction
+
+### image_simple
+Directory to put an image in for the simple neural network prediction
 
 ### misc.
-change_class_info.py - deprecated, used to alter the 'weight' of wind speed and block size - didn't end up being useful unfortunately
-data_pca.py - runs PCA on the full feature vector dataset
+image_extractor.py - converts an image in the image_simple directory into a feature vector CSV
+data_preprocess.py - main preprocessing script. 
+change_class_info.py - used to alter the 'weight' of wind speed and block size - didn't end up being useful unfortunately
+data_pca.py - deprecated, now ran in data_preprocess.py automatically. Ran PCA on the full feature vector dataset.
 k_means.py - runs k-means clustering on the PCA'd dataset
 convenience.py - convenience script I ran during data collection
-simple_nn.py - a simple neural network for classigyun
+simple_nn.py - a simple neural network for classifying the data
 test_nn.py - predicts if the picture is on fire, when it will catch fire in the video, etc

@@ -13,6 +13,8 @@ We have two interactive options - the simple neural network that uses k-means cl
 2. Run Predictor.py
 
 
+## File explanation
+
 ### Potential_Deliverables directory
 Some charts collected from data analysis by changing the 'weight' of the wind speed and blocks size
 

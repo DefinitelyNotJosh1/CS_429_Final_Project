@@ -13,52 +13,43 @@ We have two interactive options - the simple neural network that uses k-means cl
 2. Run Predictor.py
 
 
-## File explanation
+## FILE EXPLANATION
 
-### Potential_Deliverables directory
-Some charts collected from data analysis by changing the 'weight' of the wind speed and blocks size
+### Potential_Deliverables/
+    (Charts from data analysis varying wind speed and block size weight)
 
-### predict_time_josh directory
-Josh's efforts with a burn prediction network
-#### FIND_BEST_MODEL directory
-Efforts to find the best model - 7 iterations/generations
-#### misc.
-all_archs.txt - All the architectures tested
+### predict_time_josh/
+├── FIND_BEST_MODEL/
+│   (Scripts, models, and text outputs from 7 iterations)
+│
+├── all_archs.txt (All architectures tested)
+├── PCA_20_flame_frame_data.csv (Training data)
+│
+├── image/
+│   (Image to be predicted)
+│
+├── old_data/
+│   (Old data not used but kept)
+│
+├── ####_iteration directories
+│   (Scripts, models, and text outputs per iteration)
+│
+├── further_training/
+│   (Scripts and models for fine-tuning)
+│
+├── PREDICTOR.py (Final model prediction script)
+├── separate_features.py (Separates video data into features/labels)
+└── pca_model.pkl (PCA model for predictions)
 
-PCA_20_flame_frame_data.csv - data used for training
+#### image_simple/
+    (Directory for images for simple neural network)
 
-#### image directory
-Image that's being predicted
-#### old_data directory
-Data gathered that I didn't have use of but didn't want to totally scrap it. It's, for all intents and purposes, junk that might be useful later.
-#### ####_iteration directories
-Contains the scripts associated with their iterations, as well as the models and the text output
-#### further_training directory
-Various scripts/models created during the fine-tuning process
-
-#### misc. 
-PREDICTOR.py - Predicts the time until/how long an image has been burning using the final model chosen
-
-separate_features.py - separates video data into separate features and adds label for training (distance from "flame frame")
-
-pca_model.pkl - PCA model used for prediction of an image
-
-### image_simple
-Directory to put an image in for the simple neural network prediction
-
-### misc.
-image_extractor.py - converts an image in the image_simple directory into a feature vector CSV
-
-data_preprocess.py - main preprocessing script. 
-
-change_class_info.py - used to alter the 'weight' of wind speed and block size - didn't end up being useful unfortunately
-
-data_pca.py - deprecated, now ran in data_preprocess.py automatically. Ran PCA on the full feature vector dataset.
-
-k_means.py - runs k-means clustering on the PCA'd dataset
-
-convenience.py - convenience script I ran during data collection
-
-simple_nn.py - a simple neural network for classifying the data
-
-test_nn.py - predicts if the picture is on fire, when it will catch fire in the video, etc
+#### misc files (root level):
+├── image_extractor.py (Converts image to feature vector CSV)
+├── data_preprocess.py (Main preprocessing script)
+├── change_class_info.py (Script to alter wind speed and block size weight - unused)
+├── data_pca.py (Deprecated PCA script)
+├── k_means.py (Runs k-means clustering)
+├── convenience.py (Convenience script for data collection)
+├── simple_nn.py (Simple neural network for classification)
+└── test_nn.py (Predicts fire timing and status)

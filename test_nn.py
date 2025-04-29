@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 import torch
 import torch.nn as nn
+import image_extractor
 
 num_classes = 12
 
@@ -22,8 +23,10 @@ class SimpleNN(nn.Module):
         x = self.fc2(x)
         return x
 
+
+
 # Load the frame features
-df = pd.read_csv("test_frames.csv", header=None)
+df = pd.read_csv("image_output.csv", header=None)
 features = df.values.astype(np.float32)
 X_single = torch.tensor(features, dtype=torch.float32)
 

@@ -79,27 +79,36 @@ if not image_files:
     print(f"No valid images found in {image_dir}. Please add an image.")
     exit()
 
-# Process the first image
-img_name = image_files[0]
-img_path = os.path.join(image_dir, img_name)
-print(f"Processing {img_name}...")
+for i in range(len(image_files)) :
+    # Process the images
+    img_name = image_files[i]
+    img_path = os.path.join(image_dir, img_name)
+    print(f"Processing {img_name}...")
 
-features = extract_features(img_path)
-features = np.append(features, [0, 0])  # Append two zeros to the end of the feature vector (PCA expects 2050 features, issue on my end (Josh))
-if features is None:
-    print(f"Failed to extract features for {img_name}. Check the image file.")
-    exit()
+    features = extract_features(img_path)
+    features = np.append(features, [0, 0])  # Append two zeros to the end of the feature vector (PCA expects 2050 features, issue on my end (Josh))
+    if features is None:
+        print(f"Failed to extract features for {img_name}. Check the image file.")
+        exit()
 
-# Apply PCA
-pca_components = extract_top_pca_components(features, pca_model, input_dimensions)
-if pca_components is None:
-    print("Failed to extract PCA components.")
-    exit()
-print(f"Extracted PCA components shape: {pca_components.shape}")
+    # Apply PCA
+    pca_components = extract_top_pca_components(features, pca_model, input_dimensions)
+    if pca_components is None:
+        print("Failed to extract PCA components.")
+        exit()
+    print(f"Extracted PCA components shape: {pca_components.shape}")
 
-# save PCA components to CSV
-pca_df = pd.DataFrame(pca_components)
-pca_df.to_csv(output_file, index=False, header=False)
+    # save PCA components to CSV
+    pca_df = pd.DataFrame(pca_components)
+    
+    # Determine the mode and header for the first iteration
+    if i == 0:
+        mode = 'w'  # Overwrite on first iteration
+    else:
+        mode = 'a'  # Append for subsequent iterations
+
+    # Save or append to CSV
+    pca_df.to_csv(output_file, mode=mode, index=False, header=False)
 
 
 print("Processing complete!")

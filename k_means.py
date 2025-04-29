@@ -38,7 +38,7 @@ ax.set_xlabel("PCA Component 1")
 ax.set_ylabel("PCA Component 2")
 ax.set_zlabel("PCA Component 3")
 plt.colorbar(scatter, label='Cluster')
-#plt.show()
+plt.show()
 
 # Reduce dimensionality to 2D
 pca = PCA(n_components=2)
@@ -90,7 +90,7 @@ plt.colorbar(ticks=tick_count, label='Label')
 plt.tight_layout()
 
 # Show the plot
-#plt.show()
+plt.show()
 
 # Find cluster classifications for each video
 df['video_id'] = df.index.to_series().apply(lambda x: x.split('/')[0]) # split the index to get video ID
@@ -118,7 +118,7 @@ for idx, (video_id, group) in enumerate(video_groups):
     plt.colorbar(ticks=tick_count, label='Label')
 plt.tight_layout()
 plt.savefig("resnet_group_layout_over_time_-1-1_range.png")
-#plt.show()
+plt.show()
 
 # Print the first instance of cluster 6 for each video
 print("First instances of cluster 6 (flame) in each video:")
